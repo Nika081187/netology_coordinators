@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol MyTabBarControllerDelegate: class {
+  func myTabBarControllerItemSelected(_ name: String)
+}
+
 @available(iOS 13.0, *)
 class MyTabBarController: UIViewController, UITabBarDelegate {
-
+    weak var delegate: MyTabBarControllerDelegate?
     let tabBar = UITabBar()
     
     private lazy var updateLabel: UILabel = {
@@ -23,6 +27,7 @@ class MyTabBarController: UIViewController, UITabBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.delegate = self
+        
         addTabbar()
         updateUI()
     }
@@ -53,14 +58,7 @@ class MyTabBarController: UIViewController, UITabBarDelegate {
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        switch item.title {
-        case "Feed":
-            navigationController?.pushViewController(FeedViewController(), animated: true)
-        case "Profile":
-            navigationController?.pushViewController(ProfileViewController(), animated: true)
-        default:
-            fatalError("Unknown tab bar item!")
-        }
+        delegate?.myTabBarControllerItemSelected(item.title!)
     }
 
     private var time: Date?

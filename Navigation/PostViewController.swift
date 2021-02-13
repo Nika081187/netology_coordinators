@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol PostViewControllerDelegate: class {
+  func onAddPostPressed()
+}
+
 @available(iOS 13.0, *)
 class PostViewController: UIViewController {
+    
+    weak var delegate: PostViewControllerDelegate?
     
     private lazy var addButton: UIButton = {
         let addButton = UIButton(type: .system)
@@ -22,10 +28,7 @@ class PostViewController: UIViewController {
 
     @objc func addPostPressed(){
         print("add post!")
-        let vc = InfoViewController()
-        vc.modalPresentationStyle = .popover
-        vc.navigationController?.isToolbarHidden = true
-        present(vc, animated: true, completion: nil)
+        delegate?.onAddPostPressed()
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

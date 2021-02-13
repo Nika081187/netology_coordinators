@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ProfileViewDelegate: class {
+    func onArrowPressed()
+}
+
 @available(iOS 13.0, *)
 class ProfileViewController: UIViewController {
     
@@ -23,7 +27,7 @@ class ProfileViewController: UIViewController {
     }
     
     private lazy var header = ProfileTableHederView()
-    private lazy var photos = ProfilePhotoStackView()
+    lazy var photos = ProfilePhotoStackView()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

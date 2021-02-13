@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol LogInViewControllerDelegate: class {
+  func onLogInPressed()
+}
+
 @available(iOS 13.0, *)
 class LogInViewController: UIViewController {
     private let basePadding: CGFloat = 16.0
+    
+    weak var delegate: LogInViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,14 +173,14 @@ class LogInViewController: UIViewController {
         logInButton.layer.cornerRadius = 10
         logInButton.layer.masksToBounds = false
         logInButton.clipsToBounds = true
-        logInButton.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
+        logInButton.addTarget(self, action: #selector(logInButtonPressed), for:.touchUpInside)
         logInButton.toAutoLayout()
         return logInButton
     }()
     
-    @objc func buttonPressed() {
+    @objc func logInButtonPressed() {
         print("Log in button pressed")
-        self.navigationController?.pushViewController(ProfileViewController(), animated: true)
+        delegate?.onLogInPressed()
     }
 }
 
