@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol FeedViewControllerDelegate: class {
+  func onOpenPostPressed()
+}
+
 @available(iOS 13.0, *)
 final class FeedViewController: UIViewController {
+    
+    weak var delegate: FeedViewControllerDelegate?
+    
     var date = Date()
     var calendar = Calendar.current
     var hour = 0
@@ -20,14 +27,13 @@ final class FeedViewController: UIViewController {
         let postButton = UIButton(type: .system)
         postButton.setTitle("Open post", for: .normal)
         postButton.setTitleColor(.white, for: .normal)
-        postButton.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
+        postButton.addTarget(self, action: #selector(openPostButtonPressed), for:.touchUpInside)
         postButton.toAutoLayout()
         return postButton
     }()
     
-    @objc func buttonPressed() {
-        let vc = PostViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+    @objc func openPostButtonPressed() {
+        delegate?.onOpenPostPressed()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

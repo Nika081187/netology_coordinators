@@ -12,6 +12,8 @@ class PhotosViewController: UIViewController {
     
     let baseOffset: CGFloat = 8
     
+    weak var delegate: ProfilePhotoStackViewDelegate?
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white

@@ -50,7 +50,7 @@ class TopHeaderView: UIView {
             statusButton.layer.shadowOpacity = 0.7
             statusButton.layer.shadowRadius = 4
             statusButton.layer.masksToBounds = false
-            statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+            statusButton.addTarget(self, action: #selector(statusButtonPressed), for: .touchUpInside)
         }
     }
     
@@ -58,7 +58,7 @@ class TopHeaderView: UIView {
         super.init(coder: coder)
     }
     
-    @objc func buttonPressed(){
+    @objc func statusButtonPressed(){
         print("Status button pressed: \(statusText.text!)")
     }
 }

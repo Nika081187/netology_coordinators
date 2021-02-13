@@ -10,11 +10,9 @@ import UIKit
 
 @available(iOS 13.0, *)
 class PhotosTableViewCell: UITableViewCell {
-    private lazy var photos = ProfilePhotoStackView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(photos)
     }
     
     required init?(coder: NSCoder) {

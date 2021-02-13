@@ -6,12 +6,18 @@
 //  Copyright © 2020 Artem Novichkov. All rights reserved.
 //
 
-import Foundation
 import UIKit
+
+protocol ProfilePhotoStackViewDelegate: class {
+    func onArrowPressed()
+}
 
 @available(iOS 13.0, *)
 class ProfilePhotoStackView: UIView {
     let baseOffset: CGFloat =  12
+    public var rootController: UIViewController?
+    
+    weak var delegate: ProfileViewDelegate?
     
     private lazy var photoLabel: UILabel = {
         let photoLabel = UILabel()
@@ -26,14 +32,13 @@ class ProfilePhotoStackView: UIView {
         let arrowButton = UIButton()
         arrowButton.toAutoLayout()
         arrowButton.setImage(#imageLiteral(resourceName: "arrow2"), for: .normal)
-        arrowButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        arrowButton.addTarget(self, action: #selector(arrowButtonPressed), for: .touchUpInside)
         return arrowButton
     }()
     
-    @objc func buttonPressed() {
+    @objc func arrowButtonPressed() {
         print("Arrow button pressed")
-        let root = findViewController()
-        root!.navigationController?.pushViewController(PhotosViewController(), animated: false)
+        delegate?.onArrowPressed()
     }
     
     private lazy var photoStackView: UIStackView = {
@@ -72,6 +77,7 @@ class ProfilePhotoStackView: UIView {
         addSubview(photoStackView)
         addSubview(footer)
         setupLayout()
+        rootController = findViewController()
     }
     
     required init?(coder: NSCoder) {

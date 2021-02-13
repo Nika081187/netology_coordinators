@@ -78,12 +78,12 @@ class ProfileTableHederView: UIView {
         statusButton.layer.shadowOpacity = 0.7
         statusButton.layer.shadowRadius = 4
         statusButton.layer.masksToBounds = false
-        statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        statusButton.addTarget(self, action: #selector(showStatusButtonPressed), for: .touchUpInside)
         statusButton.isEnabled = true
         return statusButton
     }()
     
-    @objc func buttonPressed() {
+    @objc func showStatusButtonPressed() {
         print("Status button pressed: \(statusTextField.text!)")
     }
     
